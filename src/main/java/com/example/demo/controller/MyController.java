@@ -21,6 +21,7 @@ public class MyController {
         workerArray[3] = new Worker("Georgina", 26, "Female", 6);
         workerArray[4] = new Worker("Katie", 25, "Female", 7);
 
+        // added try block since we were having issues with object file creation
         try (FileOutputStream fos = new FileOutputStream("Worker.obj");
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
