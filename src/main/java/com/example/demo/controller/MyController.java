@@ -12,21 +12,20 @@ import java.util.ArrayList;
 public class MyController {
 
     @GetMapping("/worker/create")
-    public String createWorker(@PathVariable Model model) throws IOException {
+    public String createWorker(Model model) throws IOException {
         Worker[] workerArray = new Worker[5];
 
         workerArray[0] = new Worker("John", 25, "Male", 3);
         workerArray[1] = new Worker("Doug", 26, "Male", 4);
-        workerArray[2] = new Worker("Kenny", 27, "Male", 5);
-        workerArray[3] = new Worker("Georgina", 28, "Female", 6);
-        workerArray[4] = new Worker("Katie", 29, "Female", 7);
+        workerArray[2] = new Worker("Kenny", 25, "Male", 5);
+        workerArray[3] = new Worker("Georgina", 26, "Female", 6);
+        workerArray[4] = new Worker("Katie", 25, "Female", 7);
 
-        File f = new File("Worker.obj");
-        FileOutputStream fos = new FileOutputStream(f);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(workerArray);
-        oos.close();
-        fos.close();
+        try (FileOutputStream fos = new FileOutputStream("Worker.obj");
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+            oos.writeObject(workerArray);
+        }
 
         return "worker";
     }
@@ -59,7 +58,7 @@ public class MyController {
         ArrayList<Worker> workersByGender = new ArrayList<>();
 
         for(Worker w : workerArray) {
-            if (w.getGender() == gender) {
+            if (w.getGender().equalsIgnoreCase(gender.toLowerCase())) {
                 workersByGender.add(w);
             }
         }

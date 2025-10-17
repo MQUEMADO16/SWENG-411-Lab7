@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import java.io.*;
+import java.io.Serializable;
 
 public class Worker implements Serializable {
 
